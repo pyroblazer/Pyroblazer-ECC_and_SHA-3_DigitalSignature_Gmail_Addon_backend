@@ -2,6 +2,7 @@
 
 from flask import Flask, jsonify, request
 import shamaq, iterator, modes, ecdsa, signature
+from ecc import demo_curve, Curve, Point
 app = Flask(__name__)
 
 
@@ -29,6 +30,7 @@ def encrypt():
         'status' : 200,
         'result' : encrypted_string
     }
+    return jsonify(json_data)
 
 @app.route('/decrypt', methods=['GET'])
 def decrypt():
@@ -48,6 +50,7 @@ def decrypt():
         'status' : 200,
         'result' : decrypted_string
     }
+    return jsonify(json_data)
 
 @app.route('/generate/private', methods=['GET'])
 def generate_private():
@@ -57,16 +60,42 @@ def generate_private():
         'status' : 200,
         'private_key' : key
     }
+    return jsonify(json_data)
 
 @app.route('/generate/public', methods=['GET'])
 def generate_public():
     private_key = request.args.get('prikey')
     key_point = ecdsa.generate_public(private_key)
-    key = str(key_point.x) + str(key_point.y)
+    key = str(key_point.x) + "-" + str(key_point.y)
     json_data = {
         'status' : 200,
         'private_key' : key
     }
+    return jsonify(json_data)
+
+@app.route('/sign', methods=['POST'])
+def generate_public():
+    message = request.args.get('message')
+    private_key = request.args.get('prikey')
+    sign_point = signature.sign(message, private_key, demo_curve)
+    sign = str(sign_point.x) + "-" + str(sign_point.y)
+    json_data = {
+        'status' : 200,
+        'signature' : sign
+    }
+    return jsonify(json_data)
+
+@app.route('/sign', methods=['POST'])
+def generate_public():
+    message = request.args.get('message')
+    sign = request.args.get('signature')
+    public_key = request.args.get('pubkey')
+    result = signature.verify(message, sign, public_key, demo_curve)
+    json_data = {
+        'status' : 200,
+        'valid' : result
+    }
+    return jsonify(json_data)
 
 if __name__ == '__main__':
     app.run()

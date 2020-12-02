@@ -24,6 +24,8 @@ class Curve():
         self.G_x = G_x
         self.G_y = G_y
         self.n = n
+
+        self.generate_field()
     
     def netral_result(self):
         return Point(None, None)
@@ -80,3 +82,5 @@ class Curve():
                     counter += 1
                     self.G_x = x
                     self.G_y = y_pos
+
+demo_curve = Curve(0,7,11,None,None,500)
