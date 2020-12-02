@@ -1,17 +1,21 @@
 """Flask App Project."""
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 import shamaq, iterator, modes, ecdsa, signature
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-type'
 
 @app.route('/')
+@cross_origin()
 def index():
     """Return homepage."""
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
 @app.route('/encrypt', methods=['GET'])
+@cross_origin()
 def encrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -31,6 +35,7 @@ def encrypt():
     }
 
 @app.route('/decrypt', methods=['GET'])
+@cross_origin()
 def decrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -50,6 +55,7 @@ def decrypt():
     }
 
 @app.route('/generate/private', methods=['GET'])
+@cross_origin()
 def generate_private():
     n = request.args.get('n')
     key = ecdsa.generate_private(n)
@@ -59,6 +65,7 @@ def generate_private():
     }
 
 @app.route('/generate/public', methods=['GET'])
+@cross_origin()
 def generate_public():
     private_key = request.args.get('prikey')
     key_point = ecdsa.generate_public(private_key)
