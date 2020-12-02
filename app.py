@@ -11,7 +11,7 @@ def index():
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
-@app.route('/encrypt', methods=['GET')
+@app.route('/encrypt', methods=['GET'])
 def encrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
