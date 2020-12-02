@@ -69,7 +69,7 @@ class Curve():
 
     def generate_field(self):
         # y^2 = x^3 + ax + b mod p in x = |0, p-1|
-        for(x in range(self.p - 1)):
+        for x in range(self.p - 1):
             y2 = x * x * x + self.a * x + self.b
             y2 = y2 % self.p
 
