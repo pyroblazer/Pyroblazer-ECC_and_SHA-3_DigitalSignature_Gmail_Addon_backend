@@ -3,6 +3,7 @@ import random
 from ecc import Point, Curve, demo_curve
 import util
 
+
 def sign(message, private_key, curve : Curve):
     s = 0
     r = 0
@@ -20,8 +21,8 @@ def sign(message, private_key, curve : Curve):
      
 def verify(message, signature, public_key, curve : Curve):
     sign = signature.split("-")
-    s = string[1]
-    r = string[0]
+    s = sign[1]
+    r = sign[0]
     w = util.modinv(s, curve.n)
     u1 = w % curve.n
     u2 = (r * w) % curve.n
