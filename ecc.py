@@ -5,10 +5,10 @@ class Point():
         self.x = x
         self.y = y
     
-    def is_netral():
+    def is_netral(self):
         return self.x is None and self.y is None
     
-    def inverse():
+    def inverse(self):
         if(self.x == None):
             return Point(None, -self.y)
         elif(self.y == None):
@@ -25,10 +25,10 @@ class Curve():
         self.G_y = G_y
         self.n = n
     
-    def netral_result():
+    def netral_result(self):
         return Point(None, None)
     
-    def add_point(p1, p2):
+    def add_point(self, p1, p2):
         if(p1.is_netral()):
             return p2
         elif(p2.is_netral()):
@@ -44,10 +44,10 @@ class Curve():
 
             return Point(xr, yr)
     
-    def next_point(p1) :
+    def next_point(self, p1) :
         return p1.inverse()
 
-    def add_point_gf(p1, p2):
+    def add_point_gf(self, p1, p2):
         if(p1.is_netral()):
             return p2
         elif(p2.is_netral()):
@@ -57,19 +57,19 @@ class Curve():
         elif ((p1.x == p2.x) and (p1.y == p2.y) and (p1.x == 0)):
             return netral_result()
         else:
-            m = (p2.y - p1.y) * modiv((p2.x - p1.x), self.p)
+            m = (p2.y - p1.y) * modinv((p2.x - p1.x), self.p)
             xr = (m*m - p2.x - p1.x) % self.p
             yr = (m * (p2.x - xr) - p2.y) % self.p
 
             return Point(xr, yr)
     
-    def subtract_point_gf(p1, p2):
+    def subtract_point_gf(self, p1, p2):
         p2_new = p2.inverse()
         return add_point_gf(p1, p2_new)
 
-    def generate_field():
+    def generate_field(self):
         # y^2 = x^3 + ax + b mod p in x = |0, p-1|
-        for(x in range(self.p - 1)) :
+        for(x in range(self.p - 1)):
             y2 = x * x * x + self.a * x + self.b
             y2 = y2 % self.p
 

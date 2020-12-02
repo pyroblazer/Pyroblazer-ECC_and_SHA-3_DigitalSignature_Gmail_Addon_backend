@@ -26,7 +26,7 @@ def is_prime(n, k=10):
         x = pow(a, d, n)
         if x == 1:
             return True
-        for i in xrange(s - 1):
+        for i in range(s - 1):
             if x == n - 1:
                 return True
             x = pow(x, 2, n)
@@ -39,7 +39,7 @@ def is_prime(n, k=10):
         d >>= 1
         s += 1
 
-    for i in xrange(k):
+    for i in range(k):
         a = randrange(2, n - 1)
         if not check(a, s, d, n):
             return False
