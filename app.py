@@ -11,7 +11,7 @@ def index():
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
-@app.route('/encrypt', methods='GET')
+@app.route('/encrypt', methods=['GET')
 def encrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -30,7 +30,7 @@ def encrypt():
         'result' : encrypted_string
     }
 
-@app.route('/decrypt', methods='GET')
+@app.route('/decrypt', methods=['GET'])
 def decrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -49,7 +49,7 @@ def decrypt():
         'result' : decrypted_string
     }
 
-@app.route('/generate/private', methods='GET')
+@app.route('/generate/private', methods=['GET'])
 def generate_private():
     n = request.args.get('n')
     key = ecdsa.generate_private(n)
@@ -58,7 +58,7 @@ def generate_private():
         'private_key' : key
     }
 
-@app.route('/generate/public', methods='GET')
+@app.route('/generate/public', methods=['GET'])
 def generate_public():
     private_key = request.args.get('prikey')
     key_point = ecdsa.generate_public(private_key)
