@@ -33,7 +33,7 @@ def encrypt():
 
     encrypted_string = ""
     for data in mode.encrypt(input_iterator):
-        encrypted_string += data.decode("latin-1")
+        encrypted_string += data #data.decode("latin-1")
 
     encrypted_string = encrypted_string.decode()
     
@@ -57,8 +57,8 @@ def decrypt():
 
     decrypted_string = ""
     for data in mode.decrypt(input_iterator):
-        decrypted_string += data.decode("latin-1")
-
+        decrypted_string += data #data.decode("latin-1")
+        
     decrypted_string = decrypted_string.decode()
     
     json_data = {
