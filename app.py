@@ -1,22 +1,27 @@
 """Flask App Project."""
 
 from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
+# from flask_cors import CORS, cross_origin
 import shamaq, iterator, modes, ecdsa, signature
 from ecc import demo_curve, Curve, Point
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-type'
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-type'
 
 @app.route('/')
-@cross_origin()
+# @cross_origin()
 def index():
     """Return homepage."""
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
 @app.route('/encrypt', methods=['GET'])
-@cross_origin()
+# @cross_origin()
 def encrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -37,7 +42,7 @@ def encrypt():
     return jsonify(json_data)
 
 @app.route('/decrypt', methods=['GET'])
-@cross_origin()
+# @cross_origin()
 def decrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -58,7 +63,7 @@ def decrypt():
     return jsonify(json_data)
 
 @app.route('/generate/private', methods=['GET'])
-@cross_origin()
+# @cross_origin()
 def generate_private():
     n = request.args.get('n')
     key = ecdsa.generate_private(n)
@@ -69,7 +74,7 @@ def generate_private():
     return jsonify(json_data)
 
 @app.route('/generate/public', methods=['GET'])
-@cross_origin()
+# @cross_origin()
 def generate_public():
     private_key = request.args.get('prikey')
     key_point = ecdsa.generate_public(private_key)
@@ -81,6 +86,7 @@ def generate_public():
     return jsonify(json_data)
 
 @app.route('/sign', methods=['POST'])
+# @cross_origin()
 def generate_public():
     message = request.args.get('message')
     private_key = request.args.get('prikey')
@@ -93,6 +99,7 @@ def generate_public():
     return jsonify(json_data)
 
 @app.route('/sign', methods=['POST'])
+# @cross_origin()
 def generate_public():
     message = request.args.get('message')
     sign = request.args.get('signature')
@@ -105,4 +112,4 @@ def generate_public():
     return jsonify(json_data)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=8000, debug=True)
