@@ -1,28 +1,27 @@
 """Flask App Project."""
 
 from flask import Flask, jsonify, request
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 import shamaq, iterator, modes, ecdsa, signature
-from ecc import demo_curve, Curve, Point
-# import logging
+from ecc import Curve, Point
+import logging
 
-# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 
 app = Flask(__name__)
-# cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-type'
 
-
-# @cross_origin()
 @app.route('/')
+@cross_origin()
 def index():
     """Return homepage."""
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
-# @cross_origin()
 @app.route('/encrypt', methods=['GET'])
+@cross_origin()
 def encrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -42,8 +41,8 @@ def encrypt():
     }
     return jsonify(json_data)
 
-# @cross_origin()
 @app.route('/decrypt', methods=['GET'])
+@cross_origin()
 def decrypt():
     key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
@@ -63,8 +62,8 @@ def decrypt():
     }
     return jsonify(json_data)
 
-# @cross_origin()
 @app.route('/generate/private', methods=['GET'])
+@cross_origin()
 def generate_private():
     n = request.args.get('n')
     key = ecdsa.generate_private(n)
@@ -74,8 +73,8 @@ def generate_private():
     }
     return jsonify(json_data)
 
-# @cross_origin()
 @app.route('/generate/public', methods=['GET'])
+@cross_origin()
 def generate_public():
     private_key = request.args.get('prikey')
     key_point = ecdsa.generate_public(private_key)
@@ -86,11 +85,12 @@ def generate_public():
     }
     return jsonify(json_data)
 
-# @cross_origin()
 @app.route('/sign', methods=['POST'])
-def generate_public():
+@cross_origin()
+def sign_with_pri():
     message = request.args.get('message')
     private_key = request.args.get('prikey')
+    demo_curve = demo_curve()
     sign_point = signature.sign(message, private_key, demo_curve)
     sign = str(sign_point.x) + "-" + str(sign_point.y)
     json_data = {
@@ -99,12 +99,13 @@ def generate_public():
     }
     return jsonify(json_data)
 
-# @cross_origin()
+@cross_origin()
 @app.route('/sign', methods=['POST'])
-def generate_public():
+def sign_with_pub():
     message = request.args.get('message')
     sign = request.args.get('signature')
     public_key = request.args.get('pubkey')
+    demo_curve = demo_curve()
     result = signature.verify(message, sign, public_key, demo_curve)
     json_data = {
         'status' : 200,

@@ -83,4 +83,5 @@ class Curve():
                     self.G_x = x
                     self.G_y = y_pos
 
-demo_curve = Curve(0,7,11,None,None,500)
+def demo_curve():
+    return Curve(0,7,11,None,None,500)

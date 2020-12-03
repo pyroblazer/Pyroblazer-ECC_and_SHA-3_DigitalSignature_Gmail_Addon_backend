@@ -1,6 +1,6 @@
 import ecdsa
 import random
-from ecc import Point, Curve, demo_curve
+from ecc import Point, Curve
 import util
 
 
