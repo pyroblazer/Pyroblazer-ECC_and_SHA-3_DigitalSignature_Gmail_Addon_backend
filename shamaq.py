@@ -15,6 +15,8 @@ class Shamaq():
     def generate_round_keys(self, key, round_count, block_size):
         half_block_size = block_size // 2
 
+        
+        key = key.encode()
         # Generate an expanded key using sha3_256 algorithm
         key_data = hashlib.sha3_256(key).digest()
 
