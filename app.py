@@ -34,6 +34,8 @@ def encrypt():
     encrypted_string = ""
     for data in mode.encrypt(input_iterator):
         encrypted_string += data.decode("latin-1")
+
+    encrypted_string = encrypted_string.encode()
     
     json_data = {
         'status' : 200,
