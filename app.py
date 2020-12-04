@@ -112,7 +112,7 @@ def sign_with_pub():
     message = request.args.get('message')
     sign = request.args.get('signature')
     public_key = request.args.get('pubkey')
-    demo_curve_obj = demo_curve()
+    demo_curve_obj = ecc.demo_curve()
     result = signature.verify(message, sign, public_key, demo_curve_obj)
     json_data = {
         'status' : 200,
