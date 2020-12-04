@@ -51,7 +51,7 @@ def decrypt():
     mode = modes.ECB(cipher)
 
     string = request.args.get('string')
-    string = string.decode()
+    #string = string.decode()
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_ciphertext)
 
