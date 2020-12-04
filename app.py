@@ -91,7 +91,7 @@ def generate_public():
     }
     return jsonify(json_data)
 
-@app.route('/sign', methods=['POST'])
+@app.route('/sign', methods=['GET'])
 @cross_origin()
 def sign_with_pri():
     message = request.args.get('message')
@@ -106,7 +106,7 @@ def sign_with_pri():
     return jsonify(json_data)
 
 @cross_origin()
-@app.route('/sign', methods=['POST'])
+@app.route('/sign', methods=['GET'])
 def sign_with_pub():
     message = request.args.get('message')
     sign = request.args.get('signature')
@@ -120,5 +120,4 @@ def sign_with_pub():
     return jsonify(json_data)
 
 if __name__ == '__main__':
-    # app.run()
-    pass
+    app.run()
