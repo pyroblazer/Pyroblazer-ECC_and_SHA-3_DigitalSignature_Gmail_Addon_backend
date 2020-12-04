@@ -5,15 +5,19 @@ import shamaq, iterator, modes, ecdsa, signature
 from ecc import Curve, Point
 import logging
 from urllib.parse import unquote
+import re
 
 #test = "\u0011\u00c0'\u00d9hp\u000f\u00eb"
-test = "\u0011\u00c0%27\u00d9hp\u000f\u00eb"
+test = "\\u0011\\u00c0%27\\u00d9hp\\u000f\\u00eb"
+test = test.encode().decode('unicode_escape')
+
 
 key = "aa"
 cipher = shamaq.Shamaq(key)
 mode = modes.ECB(cipher)
 
 string = unquote(test)
+print(string)
 #string = string.decode()
 input_bytes = string.encode("latin-1")
 input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_ciphertext)

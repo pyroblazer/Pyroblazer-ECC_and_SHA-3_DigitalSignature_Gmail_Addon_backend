@@ -51,7 +51,7 @@ def decrypt():
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
 
-    string = request.args.get('string')
+    string = request.args.get('string').encode().decode('unicode_escape')
     #string = string.decode()
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_ciphertext)
