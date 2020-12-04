@@ -4,9 +4,12 @@ from util import is_prime
 from ecc import Point, Curve
 
 def generate_private(n) :
-    i = random.randrange(n)
+    i = random.randrange(2, n)
+    i = 3
+    print("i = ", i)
     while(not is_prime(i)):
-        i = random.randrange(n)
+        i = random.randrange(2, n)
+        print("i = ", i)
 
     return i
     

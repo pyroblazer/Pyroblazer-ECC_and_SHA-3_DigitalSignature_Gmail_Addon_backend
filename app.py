@@ -92,7 +92,7 @@ def generate_public():
     }
     return jsonify(json_data)
 
-@app.route('/sign', methods=['POST'])
+@app.route('/sign', methods=['GET'])
 @cross_origin()
 def signature_sign():
     message = request.args.get('message')
