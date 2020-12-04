@@ -95,8 +95,8 @@ def generate_public():
 @app.route('/sign', methods=['POST'])
 @cross_origin()
 def signature_sign():
-    message = request.args.get('message')
-    private_key = request.args.get('prikey')
+    message = request.form.get('message')
+    private_key = request.form.get('prikey')
     demo_curve_obj = ecc.demo_curve()
     sign_point = signature.sign(message, private_key, demo_curve_obj)
     sign = str(sign_point.x) + "-" + str(sign_point.y)
