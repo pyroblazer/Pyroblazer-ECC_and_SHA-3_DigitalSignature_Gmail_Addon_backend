@@ -104,7 +104,7 @@ def sign_with_pri():
         'status' : 200,
         'signature' : sign
     }
-    print(json_data)
+    return (json_data)
 
 @cross_origin()
 @app.route('/sign', methods=['GET'])
