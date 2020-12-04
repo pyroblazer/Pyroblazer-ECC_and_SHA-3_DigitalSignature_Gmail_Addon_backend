@@ -36,6 +36,7 @@ def is_prime(n, k=10):
     d = n - 1
 
     while d % 2 == 0:
+        print(d)
         d >>= 1
         s += 1
 

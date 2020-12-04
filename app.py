@@ -92,9 +92,9 @@ def generate_public():
     }
     return jsonify(json_data)
 
-@app.route('/sign', methods=['GET'])
+@app.route('/sign', methods=['POST'])
 @cross_origin()
-def sign_with_pri():
+def signature_sign():
     message = request.args.get('message')
     private_key = request.args.get('prikey')
     demo_curve_obj = ecc.demo_curve()
@@ -107,8 +107,8 @@ def sign_with_pri():
     return (json_data)
 
 @cross_origin()
-@app.route('/sign', methods=['GET'])
-def sign_with_pub():
+@app.route('/verify', methods=['GET'])
+def signature_verify():
     message = request.args.get('message')
     sign = request.args.get('signature')
     public_key = request.args.get('pubkey')

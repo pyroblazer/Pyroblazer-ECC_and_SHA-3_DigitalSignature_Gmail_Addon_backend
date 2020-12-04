@@ -27,6 +27,7 @@ def sign(message, private_key, curve : Curve):
     return Point(r,s)
      
 def verify(message, signature, public_key, curve : Curve):
+    message = int(message,base=16)
     sign = signature.split("-")
     s = sign[1]
     r = sign[0]

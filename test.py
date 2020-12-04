@@ -8,6 +8,13 @@ import logging
 from urllib.parse import unquote
 import re
 
+n = "5"
+key = ecdsa.generate_private(int(n))
+json_data = {
+    'status' : 200,
+    'private_key' : key
+}
+print(json_data)
 
 # message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
 # private_key = "1"
