@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 import shamaq, iterator, modes, ecdsa, signature
 from ecc import Curve, Point
 import logging
+from urllib.parse import unquote
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -27,7 +28,7 @@ def encrypt():
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
     
-    string = request.args.get('string')
+    string = unquote(request.args.get('string'))
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_plaintext)
 
@@ -119,4 +120,5 @@ def sign_with_pub():
     return jsonify(json_data)
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    pass
