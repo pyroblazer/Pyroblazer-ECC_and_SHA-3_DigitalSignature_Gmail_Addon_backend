@@ -77,11 +77,13 @@ class Curve():
 
             counter = 0
             y_pos = 0
-            while((y_pos < self.p-1) or (counter == 0)) :
+            while((y_pos < self.p-1) and (counter == 0)) :
                 if((y_pos * y_pos) % self.p == y2) :
                     counter += 1
                     self.G_x = x
                     self.G_y = y_pos
+                else:
+                    y_pos += 1
 
 def demo_curve():
     return Curve(0,7,11,None,None,500)

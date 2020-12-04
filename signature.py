@@ -1,21 +1,25 @@
 import ecdsa
 import random
 from ecc import Point, Curve
+import ecc
 import util
 
 
 def sign(message, private_key, curve : Curve):
     s = 0
     r = 0
+    message = int(message,base=16)
+    z = len(str(message))-1 #let Z be the Ln leftmost bits of e, where Ln is the bit length of the group order n
+    n = str(message)[:z]
     while(s ==0):
         while(r == 0):
-            k = random.randrange(n)
+            k = random.randrange(int(n))
             x = int(curve.G_x * k)
             y = curve.G_y * k
             r = x % curve.n
         
         kmod = util.modinv(k, curve.n)
-        s = (private_key * r * kmod) % curve.n
+        s = (z + r * kmod) % curve.n
     
     return Point(r,s)
      
