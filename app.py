@@ -3,7 +3,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 import shamaq, iterator, modes, ecdsa, signature
-from ecc import demo_curve, Curve, Point
+from ecc import Curve, Point
+import ecc
 import logging
 from urllib.parse import unquote
 
@@ -96,14 +97,14 @@ def generate_public():
 def sign_with_pri():
     message = request.args.get('message')
     private_key = request.args.get('prikey')
-    demo_curve_obj = demo_curve()
+    demo_curve_obj = ecc.demo_curve()
     sign_point = signature.sign(message, private_key, demo_curve_obj)
     sign = str(sign_point.x) + "-" + str(sign_point.y)
     json_data = {
         'status' : 200,
         'signature' : sign
     }
-    return jsonify(json_data)
+    print(json_data)
 
 @cross_origin()
 @app.route('/sign', methods=['GET'])

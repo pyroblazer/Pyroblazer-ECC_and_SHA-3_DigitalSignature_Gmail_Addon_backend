@@ -13,12 +13,15 @@ def sign(message, private_key, curve : Curve):
     n = str(message)[:z]
     while(s ==0):
         while(r == 0):
-            k = random.randrange(int(n))
+            kmod = None
+            while(kmod is None):
+                k = random.randrange(int(n))
+                kmod = util.modinv(k, curve.n)
             x = int(curve.G_x * k)
             y = curve.G_y * k
             r = x % curve.n
-        
-        kmod = util.modinv(k, curve.n)
+
+        #print(type(kmod))
         s = (z + r * kmod) % curve.n
     
     return Point(r,s)
