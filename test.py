@@ -47,19 +47,12 @@ print("verify")
 message_verify = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
 public_key = pub_key
 demo_curve_obj = ecc.demo_curve()
-result = signature.verify(message_verify, sign, public_key, demo_curve_obj)
+result = signature.verify(message_verify, sign, public_key, demo_curve_obj, pri_key)
 json_data = {
     'status' : 200,
     'valid' : result
 }
 print(json_data)
-
-
-
-
-
-
-
 
 #jsonify(json_data)
 
