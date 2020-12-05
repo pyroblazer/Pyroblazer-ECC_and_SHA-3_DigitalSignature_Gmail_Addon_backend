@@ -22,10 +22,10 @@ def index():
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
-@app.route('/encrypt', methods=['GET'])
+@app.route('/encrypt', methods=['POST'])
 @cross_origin()
 def encrypt():
-    key = request.args.get('key')
+    key = request.form.get('key')
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
     
@@ -45,10 +45,10 @@ def encrypt():
     }
     return jsonify(json_data)
 
-@app.route('/decrypt', methods=['GET'])
+@app.route('/decrypt', methods=['POST'])
 @cross_origin()
 def decrypt():
-    key = request.args.get('key')
+    key = request.form.get('key')
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
 
@@ -69,10 +69,10 @@ def decrypt():
     }
     return jsonify(json_data)
 
-@app.route('/generate/private', methods=['GET'])
+@app.route('/generate/private', methods=['POST'])
 @cross_origin()
 def generate_private():
-    n = int(request.args.get('n'))
+    n = int(request.form.get('n'))
     pri_key = ecdsa.generate_private(n)
     json_data = {
         'status' : 200,
@@ -80,10 +80,10 @@ def generate_private():
     }
     return jsonify(json_data)
 
-@app.route('/generate/public', methods=['GET'])
+@app.route('/generate/public', methods=['POST'])
 @cross_origin()
 def generate_public():
-    private_key = int(request.args.get('prikey'))
+    private_key = int(request.form.get('prikey'))
     key_point = ecdsa.generate_public(private_key)
     pub_key = str(key_point.x) + "-" + str(key_point.y)
     json_data = {
@@ -107,10 +107,10 @@ def signature_sign():
     return (json_data)
 
 @cross_origin()
-@app.route('/verify', methods=['GET'])
+@app.route('/verify', methods=['POST'])
 def signature_verify():
-    message = request.args.get('message')
-    sign = request.args.get('signature')
+    message = request.form.get('message')
+    sign = request.form.get('signature')
     public_key = request.args.get('pubkey')
     demo_curve_obj = ecc.demo_curve()
     result = signature.verify(message, sign, public_key, demo_curve_obj)
