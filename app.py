@@ -22,14 +22,14 @@ def index():
     json_data = {'Hello': 'World!'}
     return jsonify(json_data)
 
-@app.route('/encrypt', methods=['POST'])
+@app.route('/encrypt', methods=['GET'])
 @cross_origin()
 def encrypt():
-    key = request.form.get('key')
+    key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
     
-    string = unquote(request.form.get('string'))
+    string = unquote(request.args.get('string'))
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_plaintext)
 
@@ -45,10 +45,10 @@ def encrypt():
     }
     return jsonify(json_data)
 
-@app.route('/decrypt', methods=['POST'])
+@app.route('/decrypt', methods=['GET'])
 @cross_origin()
 def decrypt():
-    key = request.form.get('key')
+    key = request.args.get('key')
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
 
