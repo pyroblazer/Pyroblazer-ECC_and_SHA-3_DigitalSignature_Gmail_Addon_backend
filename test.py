@@ -19,7 +19,7 @@ json_data = {
 print(json_data)
 
 #generate public key
-print(type(pri_key))
+print("pri_key type = ",type(pri_key))
 key_point = ecdsa.generate_public(pri_key)
 pub_key = str(key_point.x) + "-" + str(key_point.y)
 json_data = {
