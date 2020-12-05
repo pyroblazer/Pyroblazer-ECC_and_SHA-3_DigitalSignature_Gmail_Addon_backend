@@ -9,21 +9,22 @@ from urllib.parse import unquote
 import re
 from util import is_prime
 
-# n = "5"
-# pri_key = ecdsa.generate_private(int(n))
-# json_data = {
-#     'status' : 200,
-#     'private_key' : pri_key
-# }
-# print(json_data)
+n = "5"
+pri_key = ecdsa.generate_private(int(n))
+json_data = {
+    'status' : 200,
+    'private_key' : pri_key
+}
+print(json_data)
 
-# key_point = ecdsa.generate_public(pri_key)
-# key = str(key_point.x) + "-" + str(key_point.y)
-# json_data = {
-#     'status' : 200,
-#     'private_key' : key
-# }
-# print(json_data)
+print(type(pri_key))
+key_point = ecdsa.generate_public(pri_key)
+key = str(key_point.x) + "-" + str(key_point.y)
+json_data = {
+    'status' : 200,
+    'private_key' : key
+}
+print(json_data)
 
 # message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
 # private_key = "1"
