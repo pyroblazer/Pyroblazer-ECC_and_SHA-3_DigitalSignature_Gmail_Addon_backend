@@ -8,25 +8,25 @@ import logging
 from urllib.parse import unquote
 import re
 
-n = "5"
-key = ecdsa.generate_private(int(n))
-json_data = {
-    'status' : 200,
-    'private_key' : key
-}
-print(json_data)
-
-# message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
-# private_key = "1"
-# demo_curve_obj = ecc.demo_curve()
-# print(demo_curve_obj)
-# sign_point = signature.sign(message, private_key, demo_curve_obj)
-# sign = str(sign_point.x) + "-" + str(sign_point.y)
+# n = "5"
+# key = ecdsa.generate_private(int(n))
 # json_data = {
 #     'status' : 200,
-#     'signature' : sign
+#     'private_key' : key
 # }
 # print(json_data)
+
+message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
+private_key = "1"
+demo_curve_obj = ecc.demo_curve()
+print(demo_curve_obj)
+sign_point = signature.sign(message, private_key, demo_curve_obj)
+sign = str(sign_point.x) + "-" + str(sign_point.y)
+json_data = {
+    'status' : 200,
+    'signature' : sign
+}
+print(json_data)
 
 
 #jsonify(json_data)

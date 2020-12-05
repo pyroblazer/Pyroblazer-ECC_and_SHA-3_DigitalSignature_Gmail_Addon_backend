@@ -9,13 +9,22 @@ def sign(message, private_key, curve : Curve):
     s = 0
     r = 0
     message = int(message,base=16)
-    z = len(str(message))-1 #let Z be the Ln leftmost bits of e, where Ln is the bit length of the group order n
-    n = str(message)[:z]
+    e_bits = bin(message)
+    print(e_bits)
+    print(len(e_bits))
+    n_bits = bin(curve.n)
+    print(n_bits)
+    print(len(n_bits))
+    Ln = len(e_bits)-len(n_bits)
+    print(Ln)
+    z_bin = e_bits[2:Ln+2] #let Z be the Ln leftmost bits of e, where Ln is the bit length of the group order n
+    print(z_bin)
+    z = int(z_bin, 2)
     while(s ==0):
         while(r == 0):
             kmod = None
             while(kmod is None):
-                k = random.randrange(int(n))
+                k = random.randrange(curve.n)
                 kmod = util.modinv(k, curve.n)
             x = int(curve.G_x * k)
             y = curve.G_y * k

@@ -86,4 +86,4 @@ class Curve():
                     y_pos += 1
 
 def demo_curve():
-    return Curve(0,7,11,None,None,500)
+    return Curve(a=0,b=7,p=11,G_x=None,G_y=None,n=500)
