@@ -52,8 +52,9 @@ def sign(message, private_key, curve : Curve):
         s = int(generate_s(k, z, r, private_key, curve.n))
         r = int(r)
     return Point(r,s)
-     
-def verify(message, signature, public_key, curve : Curve, private_key):
+
+#def verify(message, signature, public_key, curve : Curve, private_key):
+def verify(message, signature, public_key, curve : Curve):
     # message = int(message,base=16)
     sign = signature.split("-")
     s = int(sign[1])
@@ -110,5 +111,5 @@ def verify(message, signature, public_key, curve : Curve, private_key):
     print("r = ", r)
 
     G = Point(curve.G_x, curve.G_y)
-    print(test(C, u1, G, u2, QA, private_key,z,r,s))
+    #print(test(C, u1, G, u2, QA, private_key,z,r,s))
     return congru(r, C.x, curve.n)
