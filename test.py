@@ -17,7 +17,7 @@ from util import is_prime
 # }
 # print(json_data)
 
-# key_point = ecdsa.generate_public(int(n), pri_key)
+# key_point = ecdsa.generate_public(pri_key)
 # key = str(key_point.x) + "-" + str(key_point.y)
 # json_data = {
 #     'status' : 200,

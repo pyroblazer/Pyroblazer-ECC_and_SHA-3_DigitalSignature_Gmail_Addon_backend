@@ -72,7 +72,7 @@ def decrypt():
 @app.route('/generate/private', methods=['GET'])
 @cross_origin()
 def generate_private():
-    n = request.args.get('n')
+    n = int(request.args.get('n'))
     key = ecdsa.generate_private(n)
     json_data = {
         'status' : 200,
