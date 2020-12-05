@@ -7,26 +7,37 @@ import ecc
 import logging
 from urllib.parse import unquote
 import re
+from util import is_prime
 
 # n = "5"
-# key = ecdsa.generate_private(int(n))
+# pri_key = ecdsa.generate_private(int(n))
+# json_data = {
+#     'status' : 200,
+#     'private_key' : pri_key
+# }
+# print(json_data)
+
+# key_point = ecdsa.generate_public(int(n), pri_key)
+# key = str(key_point.x) + "-" + str(key_point.y)
 # json_data = {
 #     'status' : 200,
 #     'private_key' : key
 # }
 # print(json_data)
 
-message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
-private_key = "1"
-demo_curve_obj = ecc.demo_curve()
-print(demo_curve_obj)
-sign_point = signature.sign(message, private_key, demo_curve_obj)
-sign = str(sign_point.x) + "-" + str(sign_point.y)
-json_data = {
-    'status' : 200,
-    'signature' : sign
-}
-print(json_data)
+# message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
+# private_key = "1"
+# demo_curve_obj = ecc.demo_curve()
+# print(demo_curve_obj)
+# sign_point = signature.sign(message, private_key, demo_curve_obj)
+# sign = str(sign_point.x) + "-" + str(sign_point.y)
+# json_data = {
+#     'status' : 200,
+#     'signature' : sign
+# }
+# print(json_data)
+
+
 
 
 #jsonify(json_data)

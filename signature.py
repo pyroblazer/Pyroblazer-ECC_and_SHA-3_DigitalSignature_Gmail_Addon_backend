@@ -37,11 +37,19 @@ def sign(message, private_key, curve : Curve):
      
 def verify(message, signature, public_key, curve : Curve):
     message = int(message,base=16)
+    e_bits = bin(message)
+    n_bits = bin(curve.n)
+    Ln = len(e_bits)-len(n_bits)
+    z_bin = e_bits[2:Ln+2] #let Z be the Ln leftmost bits of e, where Ln is the bit length of the group order n
+    z = int(z_bin, 2)
     sign = signature.split("-")
     s = sign[1]
     r = sign[0]
+    if ((r >= 1) and (r < curve.n)) or ((s >= 1) and (s < curve.n)):
+        return False
+    message = int(message,base=16)
     w = util.modinv(s, curve.n)
-    u1 = w % curve.n
+    u1 = (z * w) % curve.n
     u2 = (r * w) % curve.n
 
     Q = public_key.split("-")
