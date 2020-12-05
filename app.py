@@ -29,7 +29,7 @@ def encrypt():
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
     
-    string = unquote(request.args.get('string'))
+    string = unquote(request.form.get('string'))
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_plaintext)
 
@@ -52,7 +52,7 @@ def decrypt():
     cipher = shamaq.Shamaq(key)
     mode = modes.ECB(cipher)
 
-    string = request.args.get('string').encode().decode('unicode_escape')
+    string = request.form.get('string').encode().decode('unicode_escape')
     #string = string.decode()
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_ciphertext)
@@ -111,7 +111,7 @@ def signature_sign():
 def signature_verify():
     message = request.form.get('message')
     sign = request.form.get('signature')
-    public_key = request.args.get('pubkey')
+    public_key = request.form.get('pubkey')
     demo_curve_obj = ecc.demo_curve()
     result = signature.verify(message, sign, public_key, demo_curve_obj)
     json_data = {
