@@ -73,10 +73,10 @@ def decrypt():
 @cross_origin()
 def generate_private():
     n = int(request.args.get('n'))
-    key = ecdsa.generate_private(n)
+    pri_key = ecdsa.generate_private(n)
     json_data = {
         'status' : 200,
-        'private_key' : key
+        'private_key' : pri_key
     }
     return jsonify(json_data)
 
@@ -85,11 +85,10 @@ def generate_private():
 def generate_public():
     private_key = int(request.args.get('prikey'))
     key_point = ecdsa.generate_public(private_key)
-    key = str(key_point.x) + "-" + str(key_point.y)
+    pub_key = str(key_point.x) + "-" + str(key_point.y)
     json_data = {
         'status' : 200,
-        'private_key' : key,
-        'test' : private_key
+        'public_key' : pub_key,
     }
     return jsonify(json_data)
 

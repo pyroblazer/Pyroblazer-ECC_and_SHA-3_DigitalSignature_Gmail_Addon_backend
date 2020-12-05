@@ -9,6 +9,7 @@ from urllib.parse import unquote
 import re
 from util import is_prime
 
+#generate private key
 n = "5"
 pri_key = ecdsa.generate_private(int(n))
 json_data = {
@@ -17,26 +18,45 @@ json_data = {
 }
 print(json_data)
 
+#generate public key
 print(type(pri_key))
 key_point = ecdsa.generate_public(pri_key)
-key = str(key_point.x) + "-" + str(key_point.y)
+pub_key = str(key_point.x) + "-" + str(key_point.y)
 json_data = {
     'status' : 200,
-    'private_key' : key
+    'public_key' : pub_key
 }
 print(json_data)
 
-# message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
-# private_key = "1"
-# demo_curve_obj = ecc.demo_curve()
-# print(demo_curve_obj)
-# sign_point = signature.sign(message, private_key, demo_curve_obj)
-# sign = str(sign_point.x) + "-" + str(sign_point.y)
-# json_data = {
-#     'status' : 200,
-#     'signature' : sign
-# }
-# print(json_data)
+#sign
+print("sign")
+message = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
+private_key = pri_key
+demo_curve_obj = ecc.demo_curve()
+print(demo_curve_obj)
+sign_point = signature.sign(message, private_key, demo_curve_obj)
+sign = str(sign_point.x) + "-" + str(sign_point.y)
+json_data = {
+    'status' : 200,
+    'signature' : sign
+}
+print(json_data)
+
+#verify
+print("verify")
+message_verify = "980935360bf24012ca6c80f85bbb77ff996ece87768d81ed886af0ce9120a2f9"
+public_key = pub_key
+demo_curve_obj = ecc.demo_curve()
+result = signature.verify(message_verify, sign, public_key, demo_curve_obj)
+json_data = {
+    'status' : 200,
+    'valid' : result
+}
+print(json_data)
+
+
+
+
 
 
 
