@@ -53,15 +53,12 @@ def decrypt():
     mode = modes.ECB(cipher)
 
     string = request.args.get('string').encode().decode('unicode_escape')
-    #string = string.decode()
     input_bytes = string.encode("latin-1")
     input_iterator = iterator.bytes_block_iterator(input_bytes, mode.block_size_ciphertext)
 
     decrypted_string = ""
     for data in mode.decrypt(input_iterator):
         decrypted_string += data.decode("latin-1")
-        
-    #decrypted_string = decrypted_string.decode()
     
     json_data = {
         'status' : 200,

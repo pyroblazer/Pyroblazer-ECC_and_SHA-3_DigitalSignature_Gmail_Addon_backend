@@ -55,7 +55,6 @@ def sign(message, private_key, curve : Curve):
 
 #def verify(message, signature, public_key, curve : Curve, private_key):
 def verify(message, signature, public_key, curve : Curve):
-    # message = int(message,base=16)
     sign = signature.split("-")
     s = int(sign[1])
     r = int(sign[0])
@@ -79,10 +78,6 @@ def verify(message, signature, public_key, curve : Curve):
     print("curve.n = ", curve.n)
     u1 = (z * s_pow_min1)
     u2 = (r * s_pow_min1)
-    # u1 = ((z * s_pow_min1) % curve.n)
-    # u2 = ((r * s_pow_min1) % curve.n)
-    # u1 = (z * s_pow_min1 % curve.n)
-    # u2 = (r * s_pow_min1 % curve.n)
 
     print("public key =  ",public_key)
     Q = public_key.split("-")
@@ -101,15 +96,11 @@ def verify(message, signature, public_key, curve : Curve):
     x1 = int(x1)
     y1 = int(y1)
     C = Point(x1, y1)
-    # p1 = Point(u1 * curve.G_x, u1 * curve.G_y)
-    # p2 = Point(u2 * curve.Q_x, u1 * curve.Q_y)
 
     # check r = x1 mod n
     print("x1 = ", x1)
     print(type(x1))
-    #v = x1 % curve.n
     print("r = ", r)
 
     G = Point(curve.G_x, curve.G_y)
-    #print(test(C, u1, G, u2, QA, private_key,z,r,s))
     return congru(r, C.x, curve.n)
