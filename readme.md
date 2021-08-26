@@ -43,4 +43,6 @@ Ini merupakan e-mail client menggunakan Gmail API yang dapat melakukan enkripsi 
 
 ## Backend Deployment
 https://ecc-sha3-digitalsignature-back.herokuapp.com/
-
+To deploy in Heroku, remember to link this repository and
+1. Add heroku/python buildpack
+2. Add the free "gunicorn app:app --log-level debug" on dyno formation
